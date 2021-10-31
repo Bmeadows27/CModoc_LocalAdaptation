@@ -1,0 +1,30 @@
+start interactive session
+interactive -p quanah
+
+# move to directory
+cd /lustre/scratch/brameado/Camponotus_Local_Adaptation/04_filter_vcf_admixture
+
+#Make one vcf file 
+grep "#" scaffold0011__b.recode.vcf > modoc_admixture.vcf
+for i in $( ls *recode.vcf ); do grep -v "#" $i >> modoc_admixture.vcf; done
+
+# make chromosome map for the vcf
+grep -v "#" modoc_admixture.vcf | cut -f 1 | uniq | awk '{print $0"\t"$0}' > chrom_map.txt
+
+# run vcftools for each combined vcf
+vcftools --vcf modoc_admixture.vcf  --plink --chrom-map chrom_map.txt --out modoc_admixture 
+
+# convert each with plink
+plink --file modoc_admixture --recode12 --out modoc_admixture2 --noweb
+
+# run admixture for each 
+for K in 1 2 3 4 5; do admixture --cv modoc_admixture2.ped $K  | tee log_modoc_admixture_${K}.out; done
+for K in 1 2 3 4 5; do admixture --cv chamaetylas2.ped $K  | tee log_chamaetylas_${K}.out; done
+for K in 1 2 3 4 5; do admixture --cv cossypha2.ped $K  | tee log_cossypha_${K}.out; done
+for K in 1 2 3 4 5; do admixture --cv phylloscopus2.ped $K  | tee log_phylloscopus_${K}.out; done
+
+# check cv for each species
+grep -h CV log_batis_*.out
+grep -h CV log_chamaetylas_*.out
+grep -h CV log_cossypha_*.out
+grep -h CV log_phylloscopus_*.out
