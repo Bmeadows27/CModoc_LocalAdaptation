@@ -11,20 +11,14 @@ for i in $( ls *recode.vcf ); do grep -v "#" $i >> modoc_admixture.vcf; done
 # make chromosome map for the vcf
 grep -v "#" modoc_admixture.vcf | cut -f 1 | uniq | awk '{print $0"\t"$0}' > chrom_map.txt
 
-# run vcftools for each combined vcf
+# run vcftools for the combined vcf
 vcftools --vcf modoc_admixture.vcf  --plink --chrom-map chrom_map.txt --out modoc_admixture 
 
-# convert each with plink
+# convert the file with plink
 plink --file modoc_admixture --recode12 --out modoc_admixture2 --noweb
 
-# run admixture for each 
+# run admixture 
 for K in 1 2 3 4 5; do admixture --cv modoc_admixture2.ped $K  | tee log_modoc_admixture_${K}.out; done
-for K in 1 2 3 4 5; do admixture --cv chamaetylas2.ped $K  | tee log_chamaetylas_${K}.out; done
-for K in 1 2 3 4 5; do admixture --cv cossypha2.ped $K  | tee log_cossypha_${K}.out; done
-for K in 1 2 3 4 5; do admixture --cv phylloscopus2.ped $K  | tee log_phylloscopus_${K}.out; done
 
-# check cv for each species
-grep -h CV log_batis_*.out
-grep -h CV log_chamaetylas_*.out
-grep -h CV log_cossypha_*.out
-grep -h CV log_phylloscopus_*.out
+# check cv 
+grep -h CV log_modoc_admixture_*.out
