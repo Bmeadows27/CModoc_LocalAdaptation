@@ -20,17 +20,17 @@ basename_array=$( head -n${SLURM_ARRAY_TASK_ID} ${workdir}/basenames.txt | tail 
 refgenome=/home/jmanthey/denovo_genomes/camp_sp_genome_filtered.fasta
 
 # run bbduk
-/lustre/work/jmanthey/bbmap/bbduk.sh in1=${workdir}/00_fastq/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz in2=${workdir}/00_fastq/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz out1=${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz out2=${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz minlen=50 ftl=10 qtrim=rl trimq=10 ktrim=r k=25 mink=7 ref=/lustre/work/jmanthey/bbmap/resources/adapters.fa hdist=1 tbo tpe
+/lustre/work/jmanthey/bbmap/bbduk.sh in1=${workdir}/00_fastq/${basename_array}_R1.fastq.gz in2=${workdir}/00_fastq/${basename_array}_R2.fastq.gz out1=${workdir}/01_cleaned/${basename_array}_R1.fastq.gz out2=${workdir}/01_cleaned/${basename_array}_R2.fastq.gz minlen=50 ftl=10 qtrim=rl trimq=10 ktrim=r k=25 mink=7 ref=/lustre/work/jmanthey/bbmap/resources/adapters.fa hdist=1 tbo tpe
 
 #run bbsplit
-/lustre/work/jmanthey/bbmap/bbsplit.sh in1=${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz in2=${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz ref=${mito} basename=${workdir}/01_mtDNA/${SLURM_ARRAY_TASK_ID}_%.fastq.gz outu1=${workdir}/01_mtDNA/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz outu2=${workdir}/01_mtDNA/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz
+/lustre/work/jmanthey/bbmap/bbsplit.sh in1=${workdir}/01_cleaned/${basename_array}_R1.fastq.gz in2=${workdir}/01_cleaned/${basename_array}_R2.fastq.gz ref=${mito} basename=${workdir}/01_mtDNA/${basename_array}_%.fastq.gz outu1=${workdir}/01_mtDNA/${basename_array}_R1.fastq.gz outu2=${workdir}/01_mtDNA/${basename_array}_R2.fastq.gz
 
 # remove unnecessary bbsplit output files
-rm ${workdir}/01_mtDNA/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz
-rm ${workdir}/01_mtDNA/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz
+rm ${workdir}/01_mtDNA/${basename_array}_R1.fastq.gz
+rm ${workdir}/01_mtDNA/${basename_array}_R2.fastq.gz
 
 # run bwa mem
-bwa mem -t 12 ${refgenome} ${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R1.fastq.gz ${workdir}/01_cleaned/${SLURM_ARRAY_TASK_ID}_R2.fastq.gz > ${workdir}/01_bam_files/${SLURM_ARRAY_TASK_ID}.sam
+bwa mem -t 12 ${refgenome} ${workdir}/01_cleaned/${basename_array}_R1.fastq.gz ${workdir}/01_cleaned/${basename_array}_R2.fastq.gz > ${workdir}/01_bam_files/${basename_array}.sam
 
 # convert sam to bam
 samtools view -b -S -o ${workdir}/01_bam_files/${basename_array}.bam ${workdir}/01_bam_files/${basename_array}.sam
