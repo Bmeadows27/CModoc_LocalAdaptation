@@ -16,7 +16,7 @@
 	cluster <- "quanah"
 	output_name <- "modoc_genotype"
 	popmap <- "modoc_popmap.txt"
-	individuals <- read.table(popmap, sep="\t")
+	individuals <- read.table(popmap)
 	faidx <- read.table("camp_sp_genome_filtered.fasta.fai", sep="\t", stringsAsFactors=F)
 	singularity_cache <- "/lustre/work/brameado/singularity-cachedir"
 	name_of_gatk_singularity_image <- "gatk_4.2.3.0.sif"
