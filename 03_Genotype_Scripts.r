@@ -12,7 +12,7 @@
 	# project specific options
 	project_directory <- "/lustre/scratch/brameado/Camponotus_Local_Adaptation"
 	directory_name <- "11_genotype_scripts"
-	reference_genome_location <- "/home/jmanthey/denovo_genomes/camp_sp_genome_filtered.fasta"
+	reference_genome_location <- "/lustre/scratch/brameado/Camponotus_Local_Adaptation/camp_sp_genome_filtered.fasta"
 	cluster <- "quanah"
 	output_name <- "modoc_genotype"
 	popmap <- "modoc_popmap.txt"
