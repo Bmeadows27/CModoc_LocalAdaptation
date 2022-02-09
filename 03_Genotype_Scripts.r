@@ -18,7 +18,7 @@
 	popmap <- "modoc_popmap.txt"
 	individuals <- read.table(popmap, sep="\t")
 	faidx <- read.table("camp_sp_genome_filtered.fasta.fai", sep="\t", stringsAsFactors=F)
-	singularity_cache <- "/lustre/work/jmanthey/singularity-cachedir"
+	singularity_cache <- "/lustre/work/brameado/singularity-cachedir"
 	name_of_gatk_singularity_image <- "gatk_4.2.3.0.sif"
 
 	# define minimum and maximum genotyping job sizes
