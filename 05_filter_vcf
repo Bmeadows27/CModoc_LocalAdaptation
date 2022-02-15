@@ -30,6 +30,9 @@ vcftools --vcf ${workdir}/03_vcf/${input_array}.g.vcf  --max-missing 0.8 --minQ 
 # run bcftools to simplify the vcftools output for ADMIXTURE
 bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n ' ${workdir}/04_filter_vcf_admixture/${input_array}.recode.vcf > ${workdir}/04_filter_vcf_admixture/${input_array}.simple.vcf
 
+# run bcftools to simplify the vcftools output for ADMIXTURE 100k
+bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n ' ${workdir}/04_filter_vcf_admixture/${input_array}.recode.vcf > ${workdir}/09_filter_vcf_admixture_100k/${input_array}.simple.vcf
+
 # run bcftools to simplify the vcftools output for heterozygosity
 bcftools query -f '%CHROM\t%POS\t%REF\t%ALT[\t%GT]\n ' ${workdir}/05_filter_vcf_heterozygosity/${input_array}.recode.vcf > ${workdir}/05_filter_vcf_heterozygosity/${input_array}.simple.vcf
 
