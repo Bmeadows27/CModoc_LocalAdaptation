@@ -19,6 +19,9 @@ basename_array=$( head -n${SLURM_ARRAY_TASK_ID} ${workdir}/basenames.txt | tail 
 # define the reference genome
 refgenome=/home/jmanthey/denovo_genomes/camp_sp_genome_filtered.fasta
 
+# define the location of the reference mitogenomes
+mito=/home/jmanthey/denovo_genomes/formicinae_mitogenomes.fasta
+
 # run bbduk
 /lustre/work/jmanthey/bbmap/bbduk.sh in1=${workdir}/00_fastq/${basename_array}_R1.fastq.gz in2=${workdir}/00_fastq/${basename_array}_R2.fastq.gz out1=${workdir}/01_cleaned/${basename_array}_R1.fastq.gz out2=${workdir}/01_cleaned/${basename_array}_R2.fastq.gz minlen=50 ftl=10 qtrim=rl trimq=10 ktrim=r k=25 mink=7 ref=/lustre/work/jmanthey/bbmap/resources/adapters.fa hdist=1 tbo tpe
 
