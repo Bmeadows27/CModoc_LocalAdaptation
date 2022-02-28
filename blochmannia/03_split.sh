@@ -12,7 +12,7 @@ module load intel java bwa samtools singularity
 export SINGULARITY_CACHEDIR="/lustre/work/brameado/singularity-cachedir"
 
 # define main working directory
-workdir=/lustre/scratch/brameado/Camponotus_Local_Adaptation
+workdir=/lustre/scratch/brameado/Blochmannia_Local_Adaptation
 
 basename_array=$( head -n${SLURM_ARRAY_TASK_ID} ${workdir}/basenames.txt | tail -n1 )
 
