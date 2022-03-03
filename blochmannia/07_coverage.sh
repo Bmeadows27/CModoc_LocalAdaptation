@@ -6,6 +6,8 @@
 #SBATCH --time=48:00:00
 #SBATCH --mem-per-cpu=8G
 
+module load intel samtools
+
 samtools depth -a B001_final.bam B002_final.bam B007_final.bam B015_final.bam B017_final.bam B019_final.bam B036_final.bam B037_final.bam \
 B041_final.bam B044_final.bam B045_final.bam B047_final.bam B055_final.bam B057_final.bam B060_final.bam B061_final.bam B074_final.bam \
 B081_final.bam B090_final.bam B097_final.bam B104_final.bam B107_final.bam B109_final.bam \
