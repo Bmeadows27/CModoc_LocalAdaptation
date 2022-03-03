@@ -118,7 +118,7 @@
 	
 	#gatk 4.0
 	a_name <- paste0(project_directory, "/01_bam_files/", "${ind_array}", "_final.bam")
-	gatk_command <- paste0('singularity exec $SINGULARITY_CACHEDIR/', name_of_gatk_singularity_image, ' gatk --java-options "-Xmx', total_mem1, 'g" HaplotypeCaller -R ', reference_genome_location, " -I ", a_name, " -ERC GVCF -O ", project_directory, "/02_vcf/", "${name_array}", "._${ind_array}_.g.vcf", " --sample-ploidy" "1", " --QUIET --intervals ", "${chr_array}")
+	gatk_command <- paste0('singularity exec $SINGULARITY_CACHEDIR/', name_of_gatk_singularity_image, ' gatk --java-options "-Xmx', total_mem1, 'g" HaplotypeCaller -R ', reference_genome_location, " -I ", a_name, " -ERC GVCF -O ", project_directory, "/02_vcf/", "${name_array}", "._${ind_array}_.g.vcf", " --sample-ploidy", "1", " --QUIET --intervals ", "${chr_array}")
 	write(gatk_command, file=a.script, append=T)
 	
 	
@@ -241,5 +241,5 @@
 	write("", file=a.script, append=T)
 	
 	#gatk 4.0
-	gatk_command <- paste0('singularity exec $SINGULARITY_CACHEDIR/', name_of_gatk_singularity_image, ' gatk --java-options "-Xmx', total_mem3, 'g" GenotypeGVCFs --genomicsdb-shared-posixfs-optimizations -R ', reference_genome_location, " -V gendb://", project_directory, "/02_vcf/", "${chr_array}", "--sample-ploidy 2", --include-non-variant-sites -O ", project_directory, "/03_vcf/", "${name_array}", ".g.vcf", " -L ", "${interval_array}")
+	gatk_command <- paste0('singularity exec $SINGULARITY_CACHEDIR/', name_of_gatk_singularity_image, ' gatk --java-options "-Xmx', total_mem3, 'g" GenotypeGVCFs --genomicsdb-shared-posixfs-optimizations -R ', reference_genome_location, " -V gendb://", project_directory, "/02_vcf/", "${chr_array}", "--sample-ploidy 1", --include-non-variant-sites -O ", project_directory, "/03_vcf/", "${name_array}", ".g.vcf", " -L ", "${interval_array}")
 	write(gatk_command, file=a.script, append=T)
