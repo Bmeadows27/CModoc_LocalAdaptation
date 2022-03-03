@@ -48,33 +48,6 @@
 	dir.create(paste0(directory_name, "/01_gatk_split"))
 	dir.create(paste0(directory_name, "/02b_gatk_database"))
 	dir.create(paste0(directory_name, "/03b_group_genotype_database"))
-
-	# subset the index
-	faidx <- faidx[faidx[,2] >= min_scaffold_size, ]
-
-	# finds scaffolds too big to genotype at once
-	faidx_keep <- faidx[faidx[,2] < max_individual_genotype_job_size,1:2]
-	faidx_change <- faidx[faidx[,2] >= max_individual_genotype_job_size,1:2]
-	# paste the interval to use to each of the faidx objects
-	faidx_keep <- cbind(faidx_keep, faidx_keep[,1], rep(1, nrow(faidx_keep)), faidx_keep[,2])
-	faidx_change <- cbind(faidx_change, rep("x", nrow(faidx_change)))
-	new_faidx_change <- c()
-	for(a in 1:nrow(faidx_change)) {
-		a_rep <- faidx_change[a,]
-		a_breaks <- floor(as.numeric(a_rep[1,2]) / 2)
-		a_break1 <- c(a_rep[1,1], a_breaks, paste0(a_rep[1,1], ":1-", a_breaks), 1, a_breaks)
-		a_break2 <- c(paste0(a_rep[1,1], "b"), as.numeric(a_rep[1,2]) - a_breaks, paste0(a_rep[1,1], ":", a_breaks + 1, "-", as.numeric(a_rep[1,2])), a_breaks + 1, as.numeric(a_rep[1,2]))
-		new_faidx_change <- rbind(new_faidx_change, a_break1, a_break2)
-	}
-	colnames(faidx_keep) <- c("id", "length", "interval", "start", "end")
-	colnames(new_faidx_change) <- c("id", "length", "interval", "start", "end")
-	faidx <- rbind(faidx_keep, new_faidx_change)
-	faidx[,3] <- as.character(faidx[,3])
-	faidx[,1] <- as.character(faidx[,1])
-	faidx[,2] <- as.numeric(faidx[,2])
-	faidx[,4] <- as.numeric(faidx[,4])
-	faidx[,5] <- as.numeric(faidx[,5])
-	faidx <- na.omit(faidx)
 	
 	# write the helper files for the 1st genotyping step
 	for(a in 1:nrow(individuals)) {
