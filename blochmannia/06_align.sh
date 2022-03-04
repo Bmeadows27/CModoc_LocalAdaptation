@@ -14,7 +14,7 @@ export SINGULARITY_CACHEDIR="/lustre/work/brameado/singularity-cachedir"
 # define main working directory
 workdir=/lustre/scratch/brameado/Blochmannia_Local_Adaptation
 
-basename_array=$( head -n${SLURM_ARRAY_TASK_ID} ${workdir}/basenames.txt | tail -n1 )
+basename_array=$( head -n${SLURM_ARRAY_TASK_ID} ${workdir}/basenames2.txt | tail -n1 )
 
 # define the reference genome
 refgenome=/lustre/scratch/brameado/Blochmannia_Local_Adaptation/2_modoc.fasta
