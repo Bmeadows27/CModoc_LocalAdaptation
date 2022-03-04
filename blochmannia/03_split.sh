@@ -27,3 +27,8 @@ bloch=/lustre/scratch/brameado/Blochmannia_Local_Adaptation/2_modoc.fasta
 
 #run bbsplit
 /lustre/work/jmanthey/bbmap/bbsplit.sh in1=${workdir}/01_cleaned/${basename_array}_R1.fastq.gz in2=${workdir}/01_cleaned/${basename_array}_R2.fastq.gz ref=${bloch} basename=${workdir}/01_blochDNA/${basename_array}_%.fastq.gz outu1=${workdir}/01_blochDNA/${basename_array}_R1.fastq.gz outu2=${workdir}/01_blochDNA/${basename_array}_R2.fastq.gz
+
+#Remove unneccesary fastq files
+cd /lustre/scratch/brameado/Blochmannia_Local_Adaptation/01_blochDNA
+rm *_R1.fastq.gz
+rm *_R2.fastq.gz
