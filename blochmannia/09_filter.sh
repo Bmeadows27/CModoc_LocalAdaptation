@@ -5,7 +5,7 @@
 #SBATCH --partition quanah
 #SBATCH --time=48:00:00
 #SBATCH --mem-per-cpu=8G
-#SBATCH --array=1-45
+#SBATCH --array=1-1
 
 module load intel vcftools bcftools
 
