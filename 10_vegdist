@@ -1,0 +1,20 @@
+##Adding the headers back into the VCFs created in R
+cd /lustre/scratch/brameado/Camponotus_Local_Adaptation/15_vegdist
+
+#For Blochmannia - grep the header of main vcf into empty file and grep the genotype information into that empty vcf
+grep "#" bloch_admixture.vcf > bloch_outlier.vcf
+for i in $( ls bloch_outlier_sites.vcf ); do grep -v "#" $i >> bloch_outlier.vcf; done
+
+#Now do the same thing for the Blochmannia neutral sites
+grep "#" bloch_admixture.vcf > bloch_neutral.vcf
+for i in $( ls bloch_neutral_sites.vcf ); do grep -v "#" $i >> bloch_neutral.vcf; done
+
+#We will now do the exact same thing for the C. modoc VCFs - starting with the outlier vcf
+grep "#" modoc_lfmm2.vcf > modoc_outlier.vcf
+for i in $( ls modoc_outlier_sites.vcf ); do grep -v "#" $i >> modoc_outlier.vcf; done
+
+#Repeat for the neutral sites
+grep "#" modoc_lfmm2.vcf > modoc_neutral.vcf
+for i in $( ls modoc_neutral_sites.vcf ); do grep -v "#" $i >> modoc_neutral.vcf; done
+
+
