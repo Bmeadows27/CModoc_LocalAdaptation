@@ -1,0 +1,13 @@
+#Converting vcf to plink for FEEMS
+vcftools --vcf bloch_neutral.vcf --plink --out blochneutral
+
+/home/jmanthey/plink --file blochneutral --make-bed --out blochneutral --noweb
+
+#Converting vcf to plink for bloch outlier loci
+vcftools --vcf bloch_outlier.vcf --plink --out blochoutlier
+
+/home/jmanthey/plink --file blochoutlier --make-bed --out blochoutlier --noweb
+
+
+
+
