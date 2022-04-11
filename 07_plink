@@ -1,4 +1,4 @@
-#Converting vcf to plink for FEEMS
+#Converting bloch neutral vcf to plink for FEEMS
 vcftools --vcf bloch_neutral.vcf --plink --out blochneutral
 
 /home/jmanthey/plink --file blochneutral --make-bed --out blochneutral --noweb
@@ -8,6 +8,12 @@ vcftools --vcf bloch_outlier.vcf --plink --out blochoutlier
 
 /home/jmanthey/plink --file blochoutlier --make-bed --out blochoutlier --noweb
 
+#Converting vcf to plink for modoc outlier loci
+vcftools --vcf modoc_outlier.vcf --plink --out modocoutlier
 
+/home/jmanthey/plink --file modcoutlier --make-bed --out modocoutlier --noweb
 
+#Converting vcf to plink for modoc neutral loci
+vcftools --vcf modoc_neutral.vcf --plink --out modocneutral
 
+/home/jmanthey/plink --file modocneutral --make-bed --out modocneutral --noweb
